@@ -50,12 +50,12 @@ public class OrdenesDetalle implements Serializable {
     @Column(name = "calibracion")
     private int calibracion;
     @Column(name = "fecha_programada")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaProgramada;
     @Column(name = "fk_responsable")
     private Integer fkResponsable;
     @Column(name = "fecha_realizada")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaRealizada;
     @Size(max = 45)
     @Column(name = "numero_reporte")

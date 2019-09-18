@@ -2,6 +2,8 @@ package com.gts.equipos.rest;
 
 import com.gts.equipos.modelo.OrdenesDetalle;
 import com.gts.equipos.service.OrdenesDetalleService;
+
+import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +28,35 @@ public class OrdenesDetalleRest {
     public List<OrdenesDetalle> findAll(){
         return ordenesDetalleService.findAllOrdenes();
     }         
+    
+    @RequestMapping(value = "/ordenesDetalle/tecnicos/{idEmpresa}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> listarByIdEmpresa(@PathVariable("idEmpresa") final Integer idEmpresa) {
+      return ordenesDetalleService.findByIdEmpresa(idEmpresa);
+    }
+    
+    @RequestMapping(value= "/ordenesDetalle/matenimiento/{idEmpresa}/{fechai}/{fechaf}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> listarByEmpresaFecha(@PathVariable("idEmpresa") final Integer idEmpresa, @PathVariable("fechai") final Date fechai, 
+    		@PathVariable("fechaf") final Date fechaf){
+    	return ordenesDetalleService.filterByVarios(idEmpresa, fechai, fechaf);
+    }
+    
+    @RequestMapping(value= "/ordenesDetalle/cliente/{idEmpresa}/{fechai}/{fechaf}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> listarByEmpresaCliente(@PathVariable("idEmpresa") final Integer idEmpresa, @PathVariable("fechai") final Date fechai, 
+    		@PathVariable("fechaf") final Date fechaf){
+    	return ordenesDetalleService.listarByEmpresaCliente(idEmpresa, fechai, fechaf);
+    }
+    
+    @RequestMapping(value= "/ordenesDetalle/responsable/{idEmpresa}/{fechai}/{fechaf}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> listarByEmpresaResponsable2(@PathVariable("idEmpresa") final Integer idEmpresa, @PathVariable("fechai") final Date fechai, 
+    		@PathVariable("fechaf") final Date fechaf){
+    	return ordenesDetalleService.listarByEmpresaResponsable2(idEmpresa, fechai, fechaf);
+    }
+    
+    @RequestMapping(value= "/ordenesDetalle/responsable2/{idEmpresa}/{fechai}/{fechaf}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Object> listarByEmpresaResponsable(@PathVariable("idEmpresa") final Integer idEmpresa, @PathVariable("fechai") final Date fechai, 
+    		@PathVariable("fechaf") final Date fechaf){
+    	return ordenesDetalleService.listarByEmpresaResponsabl(idEmpresa, fechai, fechaf);
+    }
     
     @RequestMapping (value="/rest/v1/ordenesDetalle/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE  )
     public OrdenesDetalle createParametro(@RequestBody OrdenesDetalle orden){
